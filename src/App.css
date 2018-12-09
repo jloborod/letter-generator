@@ -1,32 +1,29 @@
+body, html, #root, .App {
+  height: 100%;
+}
+
+
+
+
 .App {
-  text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.definition {
+  font-style: italic;
+  font-size: 16px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.phonemic {
+  font-weight: 800;
+  font-family: monospace;
+  margin-right: 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.left-lined-header {
+  margin: 0 5% 0 10%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.page-header {
+  width: fit-content;
+  padding-top: 100px;
 }
