@@ -4,11 +4,13 @@ import './App.css';
 import Parallax from './Parallax/Parallax.js';
 import Header from './Header/Header';
 import parallax1 from './media/parallax-1.jpg'
+import arrowDownIcon from './media/icons/arrows_down_double.svg'
 import Block from './Block/Block';
 import Separator from './Separator/Separator';
 import LeftLined from './LeftLined/LeftLined';
 import Paragraph from './Paragraph/Paragraph';
 import VerticalSpaced from './VerticalSpaced/VerticalSpaced';
+import Icon from './Icon/Icon';
 
 
 class App extends Component {
@@ -16,18 +18,16 @@ class App extends Component {
     return (
       <div className="App">
         <Parallax img={parallax1}>
-        <div >
-          <LeftLined wrapClassName="left-lined-header">
-            <div className="page-header">
-              <Header>Nordic Cabin</Header>
-              <div className="definition">
-                <span className="phonemic">/ˈnɔːdɪk/ /ˈkabɪn/</span>
-                a small wooden shelter or house, relating to or denoting a simpler living in Värmland, Sweden
+            <LeftLined wrapClassName="left-lined-header">
+              <div className="page-header">
+                <Header>Nordic Cabin</Header>
+                <div className="definition">
+                  <span className="phonemic">/ˈnɔːdɪk/ /ˈkabɪn/</span>
+                  a small wooden shelter or house, relating to or denoting a simpler living in Värmland, Sweden
+                </div>
               </div>
-            </div>
-          </LeftLined>        
-        </div>
-
+            </LeftLined>        
+          <Icon src={arrowDownIcon}></Icon>
         </Parallax>
 
         <Block>
