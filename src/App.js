@@ -1,55 +1,137 @@
-import React, { Component } from 'react';
-import './App.css';
+import React from 'react';
+import Radium from 'radium';
+import ReferringTemplate from './letter/ReferringTemplate';
+import ConsentTemplate from './letter/ConsentTemplate';
+import PatientForm from './forms/PatientForm';
+import AssestmentForm from './forms/AssestmentForm';
+import { Paper, Typography } from '@material-ui/core';
 
-import Parallax from './Parallax/Parallax.js';
-import Header from './Header/Header';
-import parallax1 from './media/parallax-1.jpg'
-import arrowDownIcon from './media/icons/arrows_down_double.svg'
-import Block from './Block/Block';
-import Separator from './Separator/Separator';
-import LeftLined from './LeftLined/LeftLined';
-import Paragraph from './Paragraph/Paragraph';
-import VerticalSpaced from './VerticalSpaced/VerticalSpaced';
-import Icon from './Icon/Icon';
-
-
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Parallax img={parallax1}>
-            <LeftLined wrapClassName="left-lined-header">
-              <div className="page-header">
-                <Header>Nordic Cabin</Header>
-                <div className="definition">
-                  <span className="phonemic">/ˈnɔːdɪk/ /ˈkabɪn/</span>
-                  a small wooden shelter or house, relating to or denoting a simpler living in Värmland, Sweden
-                </div>
-              </div>
-            </LeftLined>        
-          <Icon src={arrowDownIcon}></Icon>
-        </Parallax>
-
-        <Block>
-          <LeftLined>
-            <Header>From London to the woods</Header>
-          </LeftLined>
-
-          <VerticalSpaced>
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lacinia quis vel eros donec ac odio tempor orci dapibus. Ullamcorper velit sed ullamcorper morbi tincidunt ornare. Sit amet commodo nulla facilisi nullam vehicula ipsum. Volutpat ac tincidunt vitae semper quis lectus nulla. Netus et malesuada fames ac turpis. Dui faucibus in ornare quam. Netus et malesuada fames ac turpis egestas sed tempus. Proin fermentum leo vel orci porta non. Enim lobortis scelerisque fermentum dui faucibus in ornare quam. In nisl nisi scelerisque eu. Malesuada fames ac turpis egestas. Non blandit massa enim nec. Lacinia at quis risus sed. Leo integer malesuada nunc vel risus. Bibendum at varius vel pharetra vel turpis nunc eget. Quis enim lobortis scelerisque fermentum dui faucibus in ornare. Enim praesent elementum facilisis leo vel. Laoreet suspendisse interdum consectetur libero id.            
-            </Paragraph>
-          </VerticalSpaced>
-
-        </Block>
-        {/* <div className="page-header">
-          <Header className="header">Cabin Fever</Header>
-          <Address className="address">&lt;Värmland, Sweden /&gt;</Address>
-        </div> */}
-
-      </div>
-    );
+const styles = {
+  app: {
+    display: 'flex',
+    fontWeight: 300,
+    padding: '50px'
+  },
+  leftCol: {
+    flex: '50%'
+  },
+  rightCol: {
+    flex: '50%',
+  },
+  paper: {
+    padding: '40px 30px',
+    fontFamily: 'Cormorant Garamond, serif',
+  },
+  form: {
+    margin: '20px 0px 50px 0'
   }
 }
 
-export default App;
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      patient: {},
+      assestment: {},
+      presence: {}
+    };
+  }
+
+  handlePatientGenderChange = (e) => {
+    this.setState({
+      ...this.state,
+      patient: {
+        ...this.state.patient,
+        gender: e.target.value,
+        pronoun: e.target.value === 'F' ? 'she' : 'he',
+        possesivePronoun: e.target.value === 'F' ? 'her' : 'his',
+      }
+    });
+  }
+
+  handlePatientNameChange = (e) => {
+    this.setState({
+      ...this.state,
+      patient: {
+        ...this.state.patient,
+        name: e.target.value
+      }
+    });
+  }
+
+  handleAssestmentDateChange = (e) => {
+    this.setState({
+      ...this.state,
+      assestment: {
+        ...this.state.assestment,
+        date: e.target.value
+      }
+    });
+  }
+
+  handleAssestmentPlaceChange = (e) => {
+    this.setState({
+      ...this.state,
+      assestment:{
+        ...this.state.assestment,
+        place: e.target.value
+      }
+    });
+  }
+
+  handlePresenceChange = (e) => {
+    let newState = {...this.state};
+    newState.presence[e.target.value] = !newState.presence[e.target.value];
+    this.setState(newState);
+  }
+
+  render() {
+    return (
+      <div style={styles.app}>
+
+        <div style={styles.leftCol}>
+          <Typography component="h1" variant="h4" gutterBottom>
+            Mental Health assestment
+          </Typography>
+
+          <div style={styles.form}>
+            <PatientForm 
+            onPatientGenderChange={this.handlePatientGenderChange}
+            onPatientNameChange={this.handlePatientNameChange}
+            patient={this.state.patient}>
+            </PatientForm>
+          </div>
+
+          <div style={styles.form}>
+            <AssestmentForm
+            onAssestmendDateChange={this.handleAssestmentDateChange}
+            onAssestmentPlaceChange={this.handleAssestmentPlaceChange}
+            onPresenceChange={this.handlePresenceChange}
+            assestment={this.state.assestment}
+            presence={this.state.presence}>
+            </AssestmentForm>
+          </div>
+        </div>
+
+
+        <div style={styles.rightCol}>
+          <Paper style={styles.paper} elevation={4}>
+
+            <ReferringTemplate 
+              patient={this.state.patient}>
+            </ReferringTemplate>
+
+            <ConsentTemplate 
+              patient={this.state.patient} 
+              assestment={this.state.assestment}>
+            </ConsentTemplate>
+
+          </Paper>        
+        </div>
+      </div>
+    )
+  }
+}
+
+export default Radium(App);
