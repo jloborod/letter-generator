@@ -28,7 +28,6 @@ const styles = {
 }
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -40,7 +39,6 @@ class App extends React.Component {
 
   handlePatientGenderChange = (e) => {
     this.setState({
-      ...this.state,
       patient: {
         ...this.state.patient,
         gender: e.target.value,
@@ -52,7 +50,6 @@ class App extends React.Component {
 
   handlePatientNameChange = (e) => {
     this.setState({
-      ...this.state,
       patient: {
         ...this.state.patient,
         name: e.target.value
@@ -62,7 +59,6 @@ class App extends React.Component {
 
   handleAssestmentDateChange = (e) => {
     this.setState({
-      ...this.state,
       assestment: {
         ...this.state.assestment,
         date: e.target.value
@@ -72,7 +68,6 @@ class App extends React.Component {
 
   handleAssestmentPlaceChange = (e) => {
     this.setState({
-      ...this.state,
       assestment:{
         ...this.state.assestment,
         place: e.target.value
@@ -80,11 +75,14 @@ class App extends React.Component {
     });
   }
 
-  handlePresenceChange = (e) => {
-    let newState = {...this.state};
-    newState.presence[e.target.value] = !newState.presence[e.target.value];
-    this.setState(newState);
-  }
+  handlePresenceChange = e => {
+    this.setState({
+      presence: {
+        ...this.state.presence,
+        [e.target.value]: e.target.checked,
+      },
+    });
+  };
 
   render() {
     return (
@@ -96,7 +94,7 @@ class App extends React.Component {
           </Typography>
 
           <div style={styles.form}>
-            <PatientForm 
+            <PatientForm
             onPatientGenderChange={this.handlePatientGenderChange}
             onPatientNameChange={this.handlePatientNameChange}
             patient={this.state.patient}>
@@ -118,16 +116,16 @@ class App extends React.Component {
         <div style={styles.rightCol}>
           <Paper style={styles.paper} elevation={4}>
 
-            <ReferringTemplate 
+            <ReferringTemplate
               patient={this.state.patient}>
             </ReferringTemplate>
 
-            <ConsentTemplate 
-              patient={this.state.patient} 
+            <ConsentTemplate
+              patient={this.state.patient}
               assestment={this.state.assestment}>
             </ConsentTemplate>
 
-          </Paper>        
+          </Paper>
         </div>
       </div>
     )
