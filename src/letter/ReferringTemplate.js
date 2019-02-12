@@ -1,10 +1,8 @@
 import React from 'react';
 import Radium from 'radium';
-import {propsCompleted} from '../utils';
 
-const ReferringTemplate = props => propsCompleted(props) ?
+const ReferringTemplate = props => 
   <p>Thank you for referring {props.patient.name} to the City & Hackney Diagnostic Memory Clinic
-  for investigation of {props.patient.possesivePronoun} deterioration in {props.patient.possesivePronoun} memory.</p> :
-  <p>Form not completed!</p>;
+  for investigation of {props.patient.possesivePronoun} deterioration in {props.patient.possesivePronoun} memory.</p>
 
 export default Radium(ReferringTemplate);

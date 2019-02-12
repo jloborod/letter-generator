@@ -1,31 +1,14 @@
 import React from 'react';
 import Radium from 'radium';
+import { Paper, Typography } from '@material-ui/core';
 import ReferringTemplate from './letter/ReferringTemplate';
 import ConsentTemplate from './letter/ConsentTemplate';
-import PatientForm from './forms/PatientForm';
-import AssestmentForm from './forms/AssestmentForm';
-import { Paper, Typography } from '@material-ui/core';
-
-const styles = {
-  app: {
-    display: 'flex',
-    fontWeight: 300,
-    padding: '50px'
-  },
-  leftCol: {
-    flex: '50%'
-  },
-  rightCol: {
-    flex: '50%',
-  },
-  paper: {
-    padding: '40px 30px',
-    fontFamily: 'Cormorant Garamond, serif',
-  },
-  form: {
-    margin: '20px 0px 50px 0'
-  }
-}
+import PatientForm from './PatientForm/PatientForm';
+import AssestmentForm from './AssestmentForm/AssestmentForm';
+import Cover from './Cover/Cover';
+import BackgroundForm from './BackgroundForm/BackgroundForm';
+import BackgroundTemplate from './letter/BackgroundTemplate';
+import './App.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -33,11 +16,37 @@ class App extends React.Component {
     this.state = {
       patient: {},
       assestment: {},
-      presence: {}
+      problems: {
+        apetiteReduced: false,
+        shortTermMemory: false,
+        riskAggression: false,
+        riskFire: false,
+        forgettingMedication: false
+      },
+      presence: {
+        relatives: {
+          husband: false,
+          wife: false,
+          partner: false,
+          daughter: false,
+          son: false,
+          friend: false
+        },
+        workers: {
+          worker1: '',
+          worker2: ''
+        }
+      },
+      background: {
+        studies: '',
+        haveQuitStudies: false,
+        birthPlace: '',
+        lastJob: ''
+      }
     };
   }
 
-  handlePatientGenderChange = (e) => {
+  handlePatientGenderChange = e => {
     this.setState({
       patient: {
         ...this.state.patient,
@@ -48,7 +57,7 @@ class App extends React.Component {
     });
   }
 
-  handlePatientNameChange = (e) => {
+  handlePatientNameChange = e => {
     this.setState({
       patient: {
         ...this.state.patient,
@@ -57,16 +66,18 @@ class App extends React.Component {
     });
   }
 
-  handleAssestmentDateChange = (e) => {
+
+
+  handleAssestmentDateChange = e => {
     this.setState({
       assestment: {
         ...this.state.assestment,
-        date: e.target.value
+        date: new Date(e.target.value).toLocaleDateString()
       }
     });
   }
 
-  handleAssestmentPlaceChange = (e) => {
+  handleAssestmentPlaceChange = e => {
     this.setState({
       assestment:{
         ...this.state.assestment,
@@ -75,56 +86,176 @@ class App extends React.Component {
     });
   }
 
+  handleProblemsChange = e => {
+    this.setState({
+      problems: {
+        ...this.state.problems,
+          [e.target.value]: e.target.checked
+        }
+    });
+  };
+
   handlePresenceChange = e => {
     this.setState({
       presence: {
         ...this.state.presence,
-        [e.target.value]: e.target.checked,
+        relatives: {
+          ...this.state.presence.relatives,
+          [e.target.value]: e.target.checked
+        }
       },
     });
   };
 
+  handleWorkerPresenceChange = e => {
+    this.setState({
+      presence: {
+        ...this.state.presence,
+        workers: {
+          ...this.state.presence.workers,
+          [e.target.name]: e.target.value
+        }
+      },
+    });    
+  }
+
+  handleBirthPlaceChange = e => {
+    this.setState({
+      background: {
+        ...this.state.background,
+        birthPlace: e.target.value
+      },
+    });       
+  }
+
+  handleStudiesChange = e => {
+    this.setState({
+      background: {
+        ...this.state.background,
+        studies: e.target.value
+      },
+    });       
+  }
+
+  handleHaveQuitStudiesChange = e => {
+    this.setState({
+      background: {
+        ...this.state.background,
+        haveQuitStudies: e.target.checked
+      },
+    });       
+  }
+
+  handleComingYearChange = e => {
+    this.setState({
+      background: {
+        ...this.state.background,
+        comingYear: e.target.value
+      },
+    });       
+  }
+
+  handleLastJobChange = e => {
+    this.setState({
+      background: {
+        ...this.state.background,
+        lastJob: e.target.value
+      },
+    });       
+  }
+
+  
+
   render() {
     return (
-      <div style={styles.app}>
+      <div className="app">
 
-        <div style={styles.leftCol}>
+        <div className="left-col">
           <Typography component="h1" variant="h4" gutterBottom>
             Mental Health assestment
           </Typography>
 
-          <div style={styles.form}>
+          <div className="form">
             <PatientForm
-            onPatientGenderChange={this.handlePatientGenderChange}
-            onPatientNameChange={this.handlePatientNameChange}
-            patient={this.state.patient}>
+              onPatientGenderChange={this.handlePatientGenderChange}
+              onPatientNameChange={this.handlePatientNameChange}
+              patient={this.state.patient}
+            >
             </PatientForm>
           </div>
 
-          <div style={styles.form}>
+          <div className="form">
             <AssestmentForm
-            onAssestmendDateChange={this.handleAssestmentDateChange}
-            onAssestmentPlaceChange={this.handleAssestmentPlaceChange}
-            onPresenceChange={this.handlePresenceChange}
-            assestment={this.state.assestment}
-            presence={this.state.presence}>
+              onAssestmendDateChange={this.handleAssestmentDateChange}
+              onAssestmentPlaceChange={this.handleAssestmentPlaceChange}
+              onPresenceChange={this.handlePresenceChange}
+              onWorkerPresenceChange={this.handleWorkerPresenceChange}
+              assestment={this.state.assestment}
+              presence={this.state.presence}
+            >
             </AssestmentForm>
           </div>
+
+          <div className="form">
+            <BackgroundForm
+              onBirthPlaceChange={this.handleBirthPlaceChange}
+              onComingYearChange={this.handleComingYearChange}
+              onHaveQuitStudiesChange={this.handleHaveQuitStudiesChange}
+              onStudiesChange={this.handleStudiesChange}
+              onLastJobChange={this.handleLastJobChange}
+              background={this.state.background}
+            >
+            </BackgroundForm>
+          </div>
+
+          {/* <ProblemsForm
+            onProblemsChange={this.handleProblemsChange}
+            problems={this.state.problems}
+          >
+          </ProblemsForm> */}
+
         </div>
 
+        <div className="right-col">
+          <Paper className="paper" elevation={2}>
 
-        <div style={styles.rightCol}>
-          <Paper style={styles.paper} elevation={4}>
+            <Cover validation={[
+              this.state.patient.gender,
+              this.state.patient.name
+            ]}>
+              <ReferringTemplate
+                patient={this.state.patient}>
+              </ReferringTemplate>
+            </Cover>
 
-            <ReferringTemplate
-              patient={this.state.patient}>
-            </ReferringTemplate>
+            <Cover validation={[
+              this.state.patient.name, 
+              this.state.patient.gender, 
+              this.state.assestment.date, 
+              this.state.assestment.place
+            ]}>
+              
+              <ConsentTemplate
+                patient={this.state.patient}
+                assestment={this.state.assestment}
+                presence={this.state.presence}>
+              </ConsentTemplate>
 
-            <ConsentTemplate
-              patient={this.state.patient}
-              assestment={this.state.assestment}>
-            </ConsentTemplate>
+              {/* <ProblemsTemplate>
+              </ProblemsTemplate> */}
+            </Cover>
 
+            <Cover validation={[
+              this.state.background.birthPlace, 
+              this.state.patient.pronoun
+            ]}>
+              <BackgroundTemplate
+                background={this.state.background}
+                patient={this.state.patient}
+              >
+              </BackgroundTemplate>
+
+            </Cover>
           </Paper>
         </div>
       </div>

@@ -1,0 +1,16 @@
+.assestment-form {
+  display: flex;
+}
+
+.assestment-form  .date-input {
+  margin-right: 30px;
+}
+
+.assestment-form  .place-radio {
+  flex: 50%;
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}

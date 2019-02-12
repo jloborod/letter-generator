@@ -1,0 +1,13 @@
+
+.presence-widget {
+  display: flex;
+}
+
+.presence-widget .patient-column,
+.presence-widget .workers-column {
+  flex: 50%;
+}
+
+.presence-widget .worker-input {
+  margin-top: 11px;
+}

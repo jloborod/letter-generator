@@ -8,44 +8,22 @@ import {
   FormLabel,
   Input
 } from '@material-ui/core';
+import './PatientForm.css'
 
-const styles = {
-  container: {
-    display: 'flex'
-  },
-  gender: {
-    flex: '50%',
-    width: 'auto',
-    height: 'auto',
-    display: 'flex',
-    flexWrap: 'nowrap',
-    flexDirection: 'row',
-  },
-
-  nameControl: {
-    flex: '50%',
-    marginRight: '30px'
-  },
-  genderControl: {
-    flex: '50%'
-  },
-  name: {}
-}
 
 const PatientForm = props => (
-  <form style={styles.container} noValidate autoComplete="off">
-    <FormControl component="fieldset" style={styles.nameControl}>
+  <form className="patient-form" noValidate autoComplete="off">
+    <FormControl component="fieldset" className="name-control">
       <FormLabel component="legend">Patient Name</FormLabel>
       <Input
-        style={styles.name}
         onChange={props.onPatientNameChange}
-        defaultValue={props.patient.name}
+        defaultValue={props.patient.name} 
       />
     </FormControl>
-    <FormControl component="fieldset" style={styles.genderControl}>
+    <FormControl component="fieldset" className="gender-control">
       <FormLabel component="legend">Gender</FormLabel>
       <RadioGroup
-        style={styles.gender}
+        className="gender"
         aria-label="Gender"
         name="gender"
         value={props.patient.gender}

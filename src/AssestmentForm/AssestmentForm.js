@@ -1,57 +1,35 @@
 import React from 'react';
 import Radium from 'radium';
 import { TextField, Radio, FormControl, RadioGroup, FormControlLabel, FormLabel } from '@material-ui/core';
-import PresenceWidget from './PresenceWidget';
-
-const styles = {
-  container: {
-    display: 'flex'
-  },
-  dateControl: {
-
-  },
-  placeControl: {
-
-  },
-  date: {
-    marginRight: '30px'
-  },
-  place: {
-    flex: '50%',
-    width: 'auto',
-    height: 'auto',
-    display: 'flex',
-    flexWrap: 'nowrap',
-    flexDirection: 'row',
-  },
-}
+import PresenceWidget from '../PresenceWidget/PresenceWidget';
+import './AssestmentForm.css';
 
 const AssestmentForm = props => (
-  <form noValidate autoComplete="off" style={styles.container}>
-    <FormControl component="fieldset" style={styles.dateControl}>
+  <form noValidate autoComplete="off" className="assestment-form">
+    <FormControl component="fieldset">
       <FormLabel component="legend">Assestment date</FormLabel>
       <TextField
-        style={styles.date}
+        className="date-input"
         type="date"
         defaultValue={props.assestment.date}
         onChange={props.onAssestmendDateChange}
       />
     </FormControl>
-    <FormControl component="fieldset" style={styles.PlaceControl}>
+    <FormControl component="fieldset">
       <FormLabel component="legend">Assestment place</FormLabel>
       <RadioGroup
-        style={styles.place}
+        className="place-radio"
         aria-label="Assestment place"
         name="assestment-place"
         value={props.assestment.place}
-        onChange={props.onAssestmentPlaceChange}
-      >
+        onChange={props.onAssestmentPlaceChange}>
         <FormControlLabel value="home" control={<Radio />} label="Home" />
         <FormControlLabel value="clinic" control={<Radio />} label="Clinic" />
       </RadioGroup>
     </FormControl>
     <PresenceWidget
       onPresenceChange={props.onPresenceChange}
+      onWorkerPresenceChange={props.onWorkerPresenceChange}
       presence={props.presence}
     />
   </form>

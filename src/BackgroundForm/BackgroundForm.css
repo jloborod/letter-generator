@@ -1,0 +1,8 @@
+
+.background-form {
+  display: flex;
+}
+
+.birth-town-input, .not-finished-input, .coming-year-input, .studies-input {
+  margin-right: 30px;
+}

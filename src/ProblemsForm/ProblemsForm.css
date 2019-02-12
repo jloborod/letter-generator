@@ -1,0 +1,13 @@
+
+.problems-form {
+  display: flex;
+}
+
+.problems-form .patient-column,
+.problems-form .workers-column {
+  flex: 50%;
+}
+
+.problems-form .worker-input {
+  margin-top: 11px;
+}

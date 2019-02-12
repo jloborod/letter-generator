@@ -1,0 +1,7 @@
+.covered {
+  filter: blur(3px);
+}
+
+.cover {
+  transition: filter 0.5s;
+}

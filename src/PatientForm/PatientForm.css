@@ -1,0 +1,21 @@
+.patient-form {
+  display: flex
+}
+
+.patient-form .gender {
+  flex: 50%;
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
+.patient-form .name-control {
+  flex: 50%;
+  margin-right: 30px;
+}
+
+.patient-form .gender-control {
+  flex: 50%;
+}
