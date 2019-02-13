@@ -23,7 +23,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {
-    "radium": "^0.25.0"
-  }
+  "devDependencies": {}
 }
